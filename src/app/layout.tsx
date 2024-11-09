@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,15 +20,22 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
+    <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <header>
+      <Link href={"/"}>index</Link>
+      &nbsp;
+      <Link href={"/search"}>search</Link>
+      &nbsp;
+      <Link href={"/book/1"}>book/1</Link>
+    </header>
+    {children}
+    </body>
     </html>
   );
 }
