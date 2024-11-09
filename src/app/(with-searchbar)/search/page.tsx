@@ -6,12 +6,7 @@ const SearchPage = async (
 ) => {
   const {q} = await searchParams;
 
-  return (
-    <div>
-      {q}
-      검색 페이지
-    </div>
-  );
+  return <div>Search 페이지: {q}</div>;
 };
 
 export default SearchPage;
