@@ -3,8 +3,8 @@ import {BookData} from "@/types";
 
 
 export default async function Page({
-                                     params,
-                                   }: {
+  params,
+}: {
   params: Promise<{ id: string | string[] }>;
 }) {
   const paramsObj = await params;

@@ -20,13 +20,13 @@ export default function Home() {
 
 
 const AllBooks = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`, {cache: "no-store"});
   if(!response.ok) {
     return <div>오류가 발생했습니다.</div>
   }
 
   const allBooks: BookData[] = await response.json();
-  console.log(allBooks);
+  // console.log(allBooks);
 
   return (
     <div>
@@ -38,13 +38,13 @@ const AllBooks = async () => {
 };
 
 const RecoBooks = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`, {cache: "force-cache"});
   if(!response.ok) {
     return <div>오류가 발생했습니다.</div>
   }
 
   const allBooks: BookData[] = await response.json();
-  console.log(allBooks);
+  // console.log(allBooks);
 
   return (
     <div>
