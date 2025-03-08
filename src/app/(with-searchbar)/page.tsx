@@ -2,8 +2,6 @@ import BookItem from "@/components/book-item";
 import style from "./page.module.css";
 import { BookData } from "@/types";
 
-export const dynamic = "force-dynamic";
-
 export default function Home() {
   return (
     <div className={style.container}>
