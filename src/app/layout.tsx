@@ -5,13 +5,13 @@ import { BookData } from "@/types";
 
 async function Footer() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/`, 
-    {cache: "force-cache"}
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/`,
+    { cache: "force-cache" }
   );
-  if(!response.ok) {
-    return <footer>제작 @winterlood</footer>
+  if (!response.ok) {
+    return <footer>제작 @winterlood</footer>;
   }
-  
+
   const books: BookData[] = await response.json();
   const bookCount = books.length;
 
@@ -20,7 +20,7 @@ async function Footer() {
       <div>제작 @winterlood</div>
       <div>총 {bookCount}권의 도서가 있습니다.</div>
     </footer>
-  )
+  );
 }
 
 export default function RootLayout({
@@ -36,7 +36,7 @@ export default function RootLayout({
             <Link href={"/"}>📚 ONEBITE BOOKS</Link>
           </header>
           <main>{children}</main>
-          <Footer/>
+          <Footer />
         </div>
       </body>
     </html>
