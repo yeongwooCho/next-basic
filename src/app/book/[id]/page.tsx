@@ -4,6 +4,7 @@ import { BookData } from "@/types";
 import ReviewItem from "@/components/review.item";
 import { getReviewsAction } from "@/actions/get-reviews.action";
 import ReviewEditor from "@/components/review-editor";
+import Image from "next/image";
 
 // generateStaticParams에 등록되지 않은 페이지의 경우 notFound page로 redirect 되는 dynamicParams 추가
 // page router의 fallback: false
@@ -57,7 +58,12 @@ async function BookDetail({ bookId }: { bookId: string }) {
         className={style.cover_img_container}
         style={{ backgroundImage: `url('${coverImgUrl}')` }}
       >
-        <img src={coverImgUrl} />
+        <Image
+          src={coverImgUrl}
+          alt={`도서 ${title}의 표지 이미지`}
+          width={240}
+          height={300}
+        />
       </div>
       <div className={style.title}>{title}</div>
       <div className={style.subTitle}>{subTitle}</div>
