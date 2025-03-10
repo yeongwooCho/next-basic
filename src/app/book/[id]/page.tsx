@@ -5,12 +5,41 @@ import ReviewItem from "@/components/review.item";
 import { getReviewsAction } from "@/actions/get-reviews.action";
 import ReviewEditor from "@/components/review-editor";
 import Image from "next/image";
+import { Metadata } from "next";
 
 // generateStaticParams에 등록되지 않은 페이지의 경우 notFound page로 redirect 되는 dynamicParams 추가
 // page router의 fallback: false
 // export const dynamicParams = false;
 export async function generateStaticParams() {
   return [{ id: "1" }, { id: "2" }, { id: "3" }];
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${id}`
+  );
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  const book: BookData = await response.json();
+  const { title, subTitle, description, coverImgUrl } = book;
+
+  return {
+    title: `${title} | 한입 북스`,
+    description: `${subTitle} | ${description}`,
+    openGraph: {
+      title: `${title} | 한입 북스`,
+      description: `${subTitle} | ${description}`,
+      images: [coverImgUrl],
+    },
+  };
 }
 
 export default async function Page({
