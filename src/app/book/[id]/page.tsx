@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import style from "./page.module.css";
 import { BookData } from "@/types";
-import { createReviewAction } from "@/actions/create-review.action";
+import ReviewItem from "@/components/review.item";
+import { getReviewsAction } from "@/actions/get-reviews.action";
+import ReviewEditor from "@/components/review-editor";
 
 // generateStaticParams에 등록되지 않은 페이지의 경우 notFound page로 redirect 되는 dynamicParams 추가
 // page router의 fallback: false
@@ -23,6 +25,7 @@ export default async function Page({
     <div className={style.container}>
       <BookDetail bookId={bookId} />
       <ReviewEditor bookId={bookId} />
+      <ReviewList bookId={bookId} />
     </div>
   );
 }
@@ -66,15 +69,15 @@ async function BookDetail({ bookId }: { bookId: string }) {
   );
 }
 
-function ReviewEditor({ bookId }: { bookId: string }) {
+async function ReviewList({ bookId }: { bookId: string }) {
+  const reviews = await getReviewsAction(bookId);
+
   return (
     <section>
-      <form action={createReviewAction}>
-        <input name="bookId" value={bookId} hidden readOnly />
-        <input required name="content" type="text" placeholder="리뷰 내용" />
-        <input required name="author" placeholder="작성자" />
-        <button type="submit">작성하기</button>
-      </form>
+      <h2>리뷰 목록</h2>
+      {reviews.map((review) => (
+        <ReviewItem key={`review-item-${review.id}`} review={review} />
+      ))}
     </section>
   );
 }
